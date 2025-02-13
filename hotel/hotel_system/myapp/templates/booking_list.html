@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายการจองห้องพัก</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/D.css' %}">
+</head>
+
+<body>
+    <nav>
+        <a href="{% url 'home' %}">
+            <button class="home-button">หน้าแรก</button>
+        </a>
+    </nav>
+
+    <h1>รายการจองห้องพัก</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ชื่อผู้จอง</th>
+                <th>หมายเลขห้อง</th>
+                <th>วันที่เช็คอิน</th>
+                <th>วันที่เช็คเอาท์</th>
+                <th>สถานะการจอง</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.customer_name }}</td>
+                <td>{{ booking.room_number }}</td>
+                <td>{{ booking.check_in_date }}</td>
+                <td>{{ booking.check_out_date }}</td>
+                <td>{{ booking.get_status_display }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">ไม่มีรายการจอง</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

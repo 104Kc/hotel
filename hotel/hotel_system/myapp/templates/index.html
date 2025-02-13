@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เว็บจองห้อพักโรงแรม</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md p-4 flex justify-between items-center">
+        <div class="text-2xl font-bold text-blue-500">ระบบจองที่พักโรงแรม</div>
+        <nav>
+            <ul class="flex space-x-4">
+                <li><a href="{% url 'room' %}" class="text-gray-600">ห้องพัก</a></li>
+                <li><a href="{% url 'booking_list' %}" class="text-gray-600">รายการจองห้องพัก</a></li>
+                <li><a href="#" class="text-gray-600">บริการเสริม</a></li>
+            </ul>
+        </nav>
+        <div>
+            <a href="{% url 'login' %}">
+                <button id="authButton" class="bg-blue-500 text-white px-4 py-2 rounded-md">
+                    ลงชื่อเข้าใช้
+                </button>
+            </a>                                
+        </div>
+        
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-96 flex items-center justify-center bg-cover bg-center" style="background-image: url('https://source.unsplash.com/1600x900/?travel,hotel');">
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+            <h1 class="text-xl font-bold mb-2">จองห้องพัก</h1>
+            <div class="flex space-x-2">
+                <input type="text" placeholder="เลขห้อง" class="p-2 border rounded-md w-60">
+                <input type="date" class="p-2 border rounded-md">
+                <input type="date" class="p-2 border rounded-md" placeholder="วันที่เช็คเอาท์">
+                <button class="bg-blue-500 text-white px-4 py-2 rounded-md">จอง</button>
+            </div>
+        </div>
+    </section>
+
+</body>
+<script>
+    // ฟังก์ชันตรวจสอบสถานะการเข้าสู่ระบบ
+    function checkAuthStatus() {
+        // ใช้ localStorage ในการเก็บสถานะการเข้าสู่ระบบ
+        const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+        if (isLoggedIn === "true") {
+            document.getElementById("authButton").textContent = "Sign out";
+            document.getElementById("authButton").onclick = function(event) {
+                event.preventDefault(); // ป้องกันการลิงก์ออก
+                localStorage.setItem("isLoggedIn", "false");
+                window.location.reload(); // รีเฟรชหน้า
+            };
+        } else {
+            document.getElementById("authButton").textContent = "ลงชื่อเข้าใช้";
+            document.getElementById("authButton").onclick = function() {
+                localStorage.setItem("isLoggedIn", "true");
+                window.location.reload(); // รีเฟรชหน้า
+            };
+        }
+    }
+
+    // เรียกใช้ฟังก์ชันเมื่อโหลดหน้าเสร็จแล้ว
+    document.addEventListener("DOMContentLoaded", checkAuthStatus);
+</script>
+</body>
+
+</html>

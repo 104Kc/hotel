@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สมัครสมาชิก</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/B.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>สมัครสมาชิก</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="username">ชื่อผู้ใช้</label>
+            <input type="text" id="username" name="username" required>
+        
+            <label for="email">อีเมล</label>
+            <input type="email" id="email" name="email" required>
+        
+            <label for="password">รหัสผ่าน</label>
+            <input type="password" id="password" name="password" required>
+        
+            <button type="submit">สมัครสมาชิก</button>
+        </form>        
+    </div>
+
+    <script>
+        function redirectToLogin(event) {
+            event.preventDefault(); // ป้องกันการรีเฟรชหน้า
+            alert("สมัครสมาชิกสำเร็จ! กำลังนำคุณไปยังหน้าเข้าสู่ระบบ...");
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+</html>
